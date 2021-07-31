@@ -8,6 +8,6 @@ router.register('users', CreateUserViewSet)
 
 urlpatterns = [
     path('auth/email/', send_confirmation_code),
-    path('auth/token/', get_jwt_token),
+    path('auth/token/login/', get_jwt_token),
     path('', include(router.urls)),
 ]

@@ -7,14 +7,13 @@ from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
 
-#from backend.settings import ADMIN_EMAIL
+from api.settings import ADMIN_EMAIL
 
 from .models import CustomUser
 from .permissions import IsAdmin, IsOwnerProfile
 from .serializers import (ConfirmationSerializer, SendCodeSerializer,
                           UserSerializer)
 
-ADMIN_EMAIL='7meln@mail.ru'
 
 class CreateUserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdmin]
