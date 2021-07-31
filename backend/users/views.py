@@ -16,7 +16,7 @@ from .serializers import (ConfirmationSerializer, SendCodeSerializer,
 
 
 class CreateUserViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdmin]
+   # permission_classes = [IsAdmin]
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
