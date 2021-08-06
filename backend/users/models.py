@@ -1,3 +1,4 @@
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -23,10 +24,10 @@ class CustomUser(AbstractUser):
     )
     #followers = models.ManyToManyField('self', related_name='users',blank=True)
     #following = models.ManyToManyField('self', related_name='authors',blank=True)
-    '''
-    followers = models.ManyToManyField('self', related_name='follower',blank=True)
-    following = models.ManyToManyField('self', related_name='following',blank=True)
-    '''
+
+    #followers = models.ManyToManyField('self', related_name='follower',blank=True)
+    #following = models.ManyToManyField('self', related_name='following',blank=True)
+    
 
     class Meta:
         ordering = ['id']

@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'users.CustomUser'
 
 DJOSER = {
-    'LOGIN_FIELD': 'email',
+    #'LOGIN_FIELD': 'email',
     'PASSWORD_RESET_CONFIRM_URL': 'set_password/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',

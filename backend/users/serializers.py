@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Follow, CustomUser
+from .models import CustomUser, Follow
 from rest_framework.validators import UniqueTogetherValidator
-
+from djoser.serializers import UserCreateSerializer
 
 User = CustomUser
 
@@ -36,7 +36,7 @@ class UserFollowSerializer(serializers.ModelSerializer):
             ) 
         return data
 
-
+'''
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -46,7 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email', 'id',
         )
         model = CustomUser
-
+'''
 class CurrentUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
