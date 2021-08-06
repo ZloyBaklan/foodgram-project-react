@@ -44,17 +44,30 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'djoser',
+    #'taggit'
     # Project apps
     'users',
+    'recipes'
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
 DJOSER = {
+    'LOGIN_FIELD': 'email',
     'PASSWORD_RESET_CONFIRM_URL': 'set_password/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
-    'SERIALIZERS': {},
+    'SERIALIZERS': {
+        'user': 'users.serializers.CurrentUserSerializer',
+        'current_user': 'users.serializers.userProfileSerializer'
+    },
+    'HIDE_USERS':False,
+    'PERMISSIONS': {
+        'user':['rest_framework.permissions.IsAuthenticated'],
+        'user_create': ['rest_framework.permissions.AllowAny'],
+        'user_list':['rest_framework.permissions.AllowAny']
+    
+    }
 }
 
 MIDDLEWARE = [
