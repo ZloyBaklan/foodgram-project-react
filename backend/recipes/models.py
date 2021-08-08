@@ -1,16 +1,20 @@
 from django.db import models
 from taggit.managers import TaggableManager
 from django.core.validators import MinValueValidator
-from django.contrib.auth import get_user_model
+from users.models import CustomUser
+from ingredients.models import Ingredient
 
-User = get_user_model()
+User = CustomUser
+
 class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               verbose_name='Автор поста',
-                               related_name='posts')
-    ingredients = models.CharField(max_length=200, verbose_name='Ингредиенты',
-                             null=False)
+                               verbose_name='Автор рецепта',
+                               related_name='recipes')
+    ingredients = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Ингредиенты',
+                            null=True, default = "")
     #tags = TaggableManager()
+    pub_date = models.DateTimeField('Дата публикации', auto_now_add=True,
+                                    db_index=True)
     text = models.TextField(verbose_name='Описание',
                                    max_length=1000)
     name = models.CharField(max_length=200, verbose_name='Название',
@@ -19,8 +23,9 @@ class Recipe(models.Model):
                               blank=True, null=True)
     cooking_time = models.CharField(max_length=200, 
                               verbose_name='Время готовки в минутах',
-                              null=False, validators=[MinValueValidator(1)])
-
+                              null=True, validators=[MinValueValidator(1)])
+    class Meta:
+        ordering = ['-pub_date'] #tags
 
     def __str__(self):
         return self.name

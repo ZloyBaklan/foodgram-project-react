@@ -7,7 +7,7 @@ User = CustomUser
 
 class UserFollowSerializer(serializers.ModelSerializer):
 
-    author = serializers.SlugRelatedField( 
+    following = serializers.SlugRelatedField( 
         slug_field='username', 
         queryset=User.objects.all(), 
     ) 
@@ -23,13 +23,13 @@ class UserFollowSerializer(serializers.ModelSerializer):
         validators = [ 
             UniqueTogetherValidator( 
                 queryset=Follow.objects.all(), 
-                fields=('user', 'author'), 
+                fields=('user', 'following'), 
                 message='Такая подписка уже существует' 
             ) 
         ] 
  
     def validate(self, data): 
-        if (data['user'] == data['author'] 
+        if (data['user'] == data['following'] 
                 and self.context['request'].method == 'POST'): 
             raise serializers.ValidationError( 
                 'Нельзя подписаться на самого себя' 

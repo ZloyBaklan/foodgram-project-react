@@ -47,17 +47,20 @@ INSTALLED_APPS = [
     #'taggit'
     # Project apps
     'users',
-    'recipes'
+    'recipes',
+    'ingredients'
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
 DJOSER = {
-    #'LOGIN_FIELD': 'email',
+    'LOGIN_FIELD': 'email',
+    #'USERNAME_FIELD': 'email',
     'PASSWORD_RESET_CONFIRM_URL': 'set_password/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
+        'user_create': 'users.serializers.CurrentUserSerializer',
         'user': 'users.serializers.CurrentUserSerializer',
         'current_user': 'users.serializers.userProfileSerializer'
     },

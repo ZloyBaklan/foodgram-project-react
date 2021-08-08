@@ -22,6 +22,8 @@ class CustomUser(AbstractUser):
     last_name = models.TextField(
         verbose_name="Фамилия", max_length=100, blank=True
     )
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
     #followers = models.ManyToManyField('self', related_name='users',blank=True)
     #following = models.ManyToManyField('self', related_name='authors',blank=True)
 
@@ -38,7 +40,7 @@ class CustomUser(AbstractUser):
 User = CustomUser
 
 class Follow(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
+    following = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='Подписка',
                                related_name='following')
     user = models.ForeignKey(User, on_delete=models.CASCADE,
@@ -46,7 +48,7 @@ class Follow(models.Model):
                              related_name='follower')
 
     class Meta:
-        UniqueConstraint(fields=['author', 'user'], name='follow_unique')
+        UniqueConstraint(fields=['following', 'user'], name='follow_unique')
 
     def __str__(self):
-        return f"{self.user} follows {self.author}"
+        return f"{self.user} follows {self.following}"
