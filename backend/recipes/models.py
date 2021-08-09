@@ -11,8 +11,8 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='Автор рецепта',
                                related_name='recipes')
-    ingredients = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Ингредиенты',
-                            null=True, default = "")
+    ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты',
+                            null=False)
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name='Хэштег',
                             null=True, default = "")
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True,
@@ -23,8 +23,8 @@ class Recipe(models.Model):
                              null=False)
     image = models.ImageField(upload_to='images/', verbose_name='Изображение', 
                               blank=True, null=True)
-    cooking_time = models.CharField( verbose_name='Время готовки в минутах',
-                              null=True, validators=[MinValueValidator(1)])
+    cooking_time = models.IntegerField(default=0, verbose_name='Время готовки в минутах',
+                              blank=True, validators=[MinValueValidator(1)])
     class Meta:
         ordering = ['-pub_date'] #tags
 
