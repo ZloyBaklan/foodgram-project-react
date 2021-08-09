@@ -1,12 +1,14 @@
 from rest_framework import filters, viewsets, status
 from rest_framework.views import APIView
-from .serializers import RecipeSerializer
-from .models import Recipe
+from .serializers import (TagSerializer)
+from .models import Tag
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 
 class ListCreateDestroyModelViewSet(
     viewsets.mixins.CreateModelMixin,
+    viewsets.mixins.RetrieveModelMixin,
     viewsets.mixins.ListModelMixin,
     viewsets.mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
@@ -16,12 +18,12 @@ class ListCreateDestroyModelViewSet(
     """
     pass
 
-class RecipeViewSet(ListCreateDestroyModelViewSet):
-    serializer_class = RecipeSerializer
-    queryset = Recipe.objects.all()
+class TagView(ListCreateDestroyModelViewSet):
+    serializer_class = TagSerializer
+    queryset = Tag.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['id', ]
-    http_method_names = ['get', 'post', 'put', 'del']
+    http_method_names = ['get', 'post']
      
     def get_queryset(self):
         # original qs
@@ -30,9 +32,9 @@ class RecipeViewSet(ListCreateDestroyModelViewSet):
         return qs
  
     def post(self, request, *args, **kwargs):
-        serializer = RecipeSerializer(data=request.data)
+        serializer = TagSerializer(data=request.data)
         if serializer.is_valid():
             ingredient = serializer.save()
-            serializer = RecipeSerializer(ingredient)
+            serializer = TagSerializer(ingredient)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

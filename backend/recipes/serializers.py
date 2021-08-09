@@ -6,10 +6,15 @@ from ingredients.models import Ingredient
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    ingredients = IngredientSerializer(many=True)
+    author = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='username'
+    )
+    tag = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         fields = ('__all__')
         model = Recipe
+'''       
     def create(self, validated_data):
         ingredient_validated_data = validated_data.pop('ingredients')
         ingredient = Ingredient.objects.create(**validated_data)
@@ -18,3 +23,4 @@ class RecipeSerializer(serializers.ModelSerializer):
             each['ingredient'] = ingredient
         choices = ingredient_set_serializer.create(ingredient_validated_data)
         return ingredient
+'''

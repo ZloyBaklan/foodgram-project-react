@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'djoser',
+    'colorfield',
     #'taggit'
     # Project apps
     'users',
     'recipes',
-    'ingredients'
+    'ingredients',
+    'tags'
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 

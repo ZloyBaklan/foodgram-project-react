@@ -29,7 +29,8 @@ class IngredientView(ListCreateDestroyModelViewSet):
         # original qs
         qs = super().get_queryset() 
         # filter by a variable captured from url, for example
-        return qs   
+        return qs
+ 
     def post(self, request, *args, **kwargs):
         serializer = IngredientSerializer(data=request.data)
         if serializer.is_valid():
