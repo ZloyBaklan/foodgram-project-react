@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from ingredients.serializers import IngredientSerializer
-from .models import Recipe
+from .models import Favorite, Recipe
 from ingredients.models import Ingredient
 
 
@@ -24,3 +24,15 @@ class RecipeSerializer(serializers.ModelSerializer):
         choices = ingredient_set_serializer.create(ingredient_validated_data)
         return ingredient
 '''
+class CurrentUserSerializer(serializers.ModelSerializer):
+    is_favorite = serializers.SerializerMethodField()
+    class Meta:
+        model = Recipe
+        fields = ('__all__')
+
+    def get_is_favorite(self, obj):
+        request = self.context.get('request')
+        if request is None or request.user.is_anonymous:
+            return False
+        user = request.user
+        return Favorite.objects.filter(recipe=obj, user=user).exists()

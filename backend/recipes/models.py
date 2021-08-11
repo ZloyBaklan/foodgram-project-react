@@ -11,8 +11,8 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='Автор рецепта',
                                related_name='recipes')
-    ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты',
-                            null=False)
+    ingredients = models.ManyToManyField(Ingredient, 
+                                         verbose_name='Ингредиенты')
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name='Хэштег',
                             null=True, default = "")
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True,
@@ -30,3 +30,7 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)

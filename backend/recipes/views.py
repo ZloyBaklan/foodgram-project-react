@@ -1,7 +1,8 @@
 from rest_framework import filters, viewsets, status
 from rest_framework.views import APIView
 from .serializers import RecipeSerializer
-from .models import Recipe
+from .models import Recipe, Favorite
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly)
@@ -49,7 +50,17 @@ class RecipeViewSet(ListCreateDestroyModelViewSet):
         serializer.save()
         data_out = serializer.data
         return Response(serializer.data)
-    ''' 
+    
+@action(detail=True, methods=['get', 'delete'], url_path='favorite', permission_classes = IsOwnerOrReadOnly)
+def favorite(self, request, pk=None):
+    if request.method == 'GET':
+        Favorite.objects.get_or_create(user=request.user)
+        return Response(status=status.HTTP_201_CREATED)
+    elif request.method == 'DELETE':
+        Favorite.objects.filter(user=request.user).delete()
+        return Response(status)
+    
+''' 
     def get_queryset(self):
         # original qs
         qs = super().get_queryset() 
@@ -63,4 +74,4 @@ class RecipeViewSet(ListCreateDestroyModelViewSet):
             serializer = RecipeSerializer(ingredient)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    '''
+'''

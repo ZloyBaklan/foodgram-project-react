@@ -24,11 +24,6 @@ class CustomUser(AbstractUser):
     )
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-    #followers = models.ManyToManyField('self', related_name='users',blank=True)
-    #following = models.ManyToManyField('self', related_name='authors',blank=True)
-
-    #followers = models.ManyToManyField('self', related_name='follower',blank=True)
-    #following = models.ManyToManyField('self', related_name='following',blank=True)
     
 
     class Meta:
