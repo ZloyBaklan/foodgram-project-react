@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from recipes.serializers import RecipeFullSerializer
 
 from .models import CustomUser, Follow
 
@@ -67,9 +66,10 @@ class FollowListSerializer(serializers.ModelSerializer):
         return False
 
     def get_recipes(self, obj):
+        from recipes.serializers import RecipeImageSerializer
         recipes = obj.recipes.all()[:3]
         request = self.context.get('request')
-        return RecipeFullSerializer(
+        return RecipeImageSerializer(
             recipes, many=True,
             context={'request': request}
         ).data

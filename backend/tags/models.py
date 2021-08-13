@@ -1,5 +1,6 @@
-from django.db import models
 from colorfield.fields import ColorField
+from django.db import models
+
 
 class Tag(models.Model):
     COLOR_CHOICES = [
@@ -13,7 +14,7 @@ class Tag(models.Model):
 
     ]
     name = models.CharField(max_length=200, verbose_name='Название тега',
-                             null=False)
+                            null=False)
     slug = models.SlugField(verbose_name='Ссылка', unique=True,
                             help_text='Ссылка тега')
     color = ColorField(choices=COLOR_CHOICES, verbose_name='Цвет тэга')
