@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 class Ingredient(models.Model):
@@ -7,8 +8,9 @@ class Ingredient(models.Model):
     measurement_unit = models.CharField(max_length=20, verbose_name='Единица измерения',
                              null=False)
     class Meta:
-        verbose_name = 'Ингредиент'
+        #verbose_name = 'Ингредиент'
         ordering = ['id']
 
     def __str__(self):
-        return self.name
+        return f'{self.name}, {self.measurement_unit}'
+

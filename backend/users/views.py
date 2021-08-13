@@ -11,7 +11,7 @@ from djoser.views import UserViewSet
 from rest_framework.permissions import AllowAny,IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework import viewsets
 from rest_framework.views import APIView
-
+from .permissions import IsOwnerProfile
 
 class FollowApiView(APIView):
     #queryset = Follow.objects.all()
@@ -37,7 +37,7 @@ class FollowApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class FollowListApiView(APIView):
-    permission_classes = [IsAuthenticated] 
+    permission_classes = [IsOwnerProfile] 
     #queryset = Follow.objects.all() 
     serializer_class = FollowListSerializer
 

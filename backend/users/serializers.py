@@ -35,18 +35,18 @@ class UserFollowSerializer(serializers.ModelSerializer):
                 'Нельзя подписаться на самого себя' 
             ) 
         return data
-    '''
+    
     def representation(self, instance):
         request = self.context.get('request')
-        return ShowFollowerSerializer(
+        return FollowListSerializer(
             instance.following,
             context={'request':request}
         ).data
-    '''
+    
 
 class FollowListSerializer(serializers.ModelSerializer):
     recipes = serializers.SerializerMethodField()
-    count_recipes = serializers.SerializerMethodField()
+    recipes_count = serializers.SerializerMethodField()
     is_subscribed = serializers.SerializerMethodField()
     
     class Meta:
