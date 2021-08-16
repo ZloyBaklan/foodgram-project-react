@@ -19,8 +19,12 @@ services:
       volumes:
         - ../frontend/:/app/result_build/
     backend:
-        image: zloybaklan/foodgram
+        build:
+          context: ../backend
+          dockerfile: ./Dockerfile
+                
         restart: always
+        command: gunicorn api.wsgi:application --bind 0.0.0.0:8000
         volumes:
             - static_value:/code/static/
             - media_value:/code/media/
