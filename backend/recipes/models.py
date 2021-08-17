@@ -26,7 +26,7 @@ class Recipe(models.Model):
     cooking_time = models.IntegerField(
         default=0, verbose_name='Время готовки в минутах',
         blank=True, validators=[MinValueValidator(1)]
-        )
+    )
 
     class Meta:
         ordering = ['-pub_date']  # tags

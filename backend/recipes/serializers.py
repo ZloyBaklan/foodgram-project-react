@@ -17,7 +17,7 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
     measurement_unit = serializers.SlugRelatedField(
         slug_field='measurement_unit',
         source='ingredient', read_only=True
-        )
+    )
 
     class Meta:
         model = IngredientAmount
