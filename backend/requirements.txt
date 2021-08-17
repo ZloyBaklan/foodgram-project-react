@@ -8,6 +8,7 @@ cryptography==3.4.7
 defusedxml==0.7.1
 Django==3.2.6
 django-colorfield==0.4.2
+django-environ==0.4.5
 django-filter==2.4.0
 django-taggit==1.5.1
 django-templated-mail==1.1.1
@@ -24,6 +25,7 @@ Jinja2==3.0.1
 MarkupSafe==2.0.1
 oauthlib==3.1.1
 Pillow==8.3.1
+psycopg2-binary==2.9.1
 pycparser==2.20
 PyJWT==2.1.0
 python3-openid==3.2.0

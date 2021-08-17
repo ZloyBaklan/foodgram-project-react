@@ -37,7 +37,7 @@ class UserFollowSerializer(serializers.ModelSerializer):
             )
         return data
 
-    def representation(self, instance):
+    def to_representation(self, instance):
         request = self.context.get('request')
         return FollowListSerializer(
             instance.following,
@@ -82,7 +82,7 @@ class CurrentUserSerializer(serializers.ModelSerializer):
     is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
-        model = CustomUser
+        model = User
         fields = ('username', 'email', 'id', 'is_subscribed',
                   'first_name', 'last_name')
 
@@ -98,5 +98,5 @@ class userProfileSerializer(serializers.ModelSerializer):
     user = CurrentUserSerializer(read_only=True)
 
     class Meta:
-        model = CustomUser
+        model = User
         fields = '__all__'
