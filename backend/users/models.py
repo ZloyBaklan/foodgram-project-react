@@ -24,7 +24,7 @@ class CustomUser(AbstractUser):
         ordering = ['id']
 
     def __str__(self):
-        return self.email
+        return f'{self.email} создан'
 
 
 User = CustomUser
