@@ -1,22 +1,10 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.response import Response
 
+from api.views import ListCreateDestroyModelViewSet
 from .models import Ingredient
 from .serializers import IngredientSerializer
-
-
-class ListCreateDestroyModelViewSet(
-    viewsets.mixins.CreateModelMixin,
-    viewsets.mixins.RetrieveModelMixin,
-    viewsets.mixins.ListModelMixin,
-    viewsets.mixins.DestroyModelMixin,
-    viewsets.GenericViewSet,
-):
-    """
-    A viewset that provides default `list()`, `create()`, 'destroy()' actions.
-    """
-    pass
 
 
 class IngredientView(ListCreateDestroyModelViewSet):
@@ -25,12 +13,6 @@ class IngredientView(ListCreateDestroyModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['id', ]
     http_method_names = ['get', 'post']
-
-    def get_queryset(self):
-        # original qs
-        qs = super().get_queryset()
-        # filter by a variable captured from url, for example
-        return qs
 
     def post(self, request, *args, **kwargs):
         serializer = IngredientSerializer(data=request.data)

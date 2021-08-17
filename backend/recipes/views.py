@@ -8,23 +8,11 @@ from rest_framework.permissions import (IsAuthenticated,
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from api.views import ListCreateDestroyModelViewSet
 from .models import Favorite, IngredientAmount, Recipe, ShoppingList
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (FavoriteSerializer, RecipeFullSerializer,
                           RecipeSerializer, ShoppingListSerializer)
-
-
-class ListCreateDestroyModelViewSet(
-    viewsets.mixins.CreateModelMixin,
-    viewsets.mixins.ListModelMixin,
-    viewsets.mixins.RetrieveModelMixin,
-    viewsets.mixins.DestroyModelMixin,
-    viewsets.GenericViewSet,
-):
-    """
-    A viewset that provides default `list()`, `create()`, 'destroy()' actions.
-    """
-    pass
 
 
 class RecipeViewSet(ListCreateDestroyModelViewSet):

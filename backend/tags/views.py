@@ -2,21 +2,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
+from api.views import ListCreateDestroyModelViewSet
 from .models import Tag
 from .serializers import TagSerializer
-
-
-class ListCreateDestroyModelViewSet(
-    viewsets.mixins.CreateModelMixin,
-    viewsets.mixins.RetrieveModelMixin,
-    viewsets.mixins.ListModelMixin,
-    viewsets.mixins.DestroyModelMixin,
-    viewsets.GenericViewSet,
-):
-    """
-    A viewset that provides default `list()`, `create()`, 'destroy()' actions.
-    """
-    pass
 
 
 class TagView(ListCreateDestroyModelViewSet):
