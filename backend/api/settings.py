@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
-#import environ
-#env = environ.Env()
-#environ.Env.read_env() 
+# import environ
+# env = environ.Env()
+# environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,7 +27,7 @@ SECRET_KEY = 'cni(48#_*bkk2c57w=^k=bstna01859hz3p(xj@2ioie1msc('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['130.193.54.244','backend', 'localhost', '127.0.0.1' ]
+ALLOWED_HOSTS = ['130.193.54.244', 'backend', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'djoser',
     'colorfield',
-    #'taggit'
+    # 'taggit'
     # Project apps
     'users',
     'recipes',
@@ -56,7 +56,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
-    #'USERNAME_FIELD': 'email',
+    # 'USERNAME_FIELD': 'email',
     'PASSWORD_RESET_CONFIRM_URL': 'set_password/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
@@ -66,12 +66,11 @@ DJOSER = {
         'user': 'users.serializers.CurrentUserSerializer',
         'current_user': 'users.serializers.userProfileSerializer'
     },
-    'HIDE_USERS':False,
+    'HIDE_USERS': False,
     'PERMISSIONS': {
-        'user':['rest_framework.permissions.IsAuthenticated'],
+        'user': ['rest_framework.permissions.IsAuthenticated'],
         'user_create': ['rest_framework.permissions.AllowAny'],
-        'user_list':['rest_framework.permissions.AllowAny']
-    
+        'user_list': ['rest_framework.permissions.AllowAny']
     }
 }
 

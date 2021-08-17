@@ -94,7 +94,7 @@ class CurrentUserSerializer(serializers.ModelSerializer):
         return Follow.objects.filter(following=obj, user=user).exists()
 
 
-class userProfileSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     user = CurrentUserSerializer(read_only=True)
 
     class Meta:
