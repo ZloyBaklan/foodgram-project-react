@@ -24,10 +24,9 @@ services:
           dockerfile: ./Dockerfile
                 
         restart: always
-        command: gunicorn api.wsgi:application --bind 0.0.0.0:8000
         volumes:
-            - static_value:/code/static/
-            - media_value:/code/media/
+            - static_value:/code/dj_static/
+            - media_value:/code/dj_media/
         depends_on:
             - db
         env_file:
@@ -38,8 +37,8 @@ services:
         ports:
             - '80:80'
         volumes:
-            - static_value:/var/html/static/
-            - media_value:/var/html/media/
+            - static_value:/var/html/dj_static/
+            - media_value:/var/html/dj_media/
             - ./nginx.conf:/etc/nginx/conf.d/default.conf
             - ../frontend/build:/usr/share/nginx/html/
             #- ../docs/redoc.html:/usr/share/nginx/html/api/docs/redoc.html

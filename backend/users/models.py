@@ -6,7 +6,7 @@ from django.db.models import UniqueConstraint
 class CustomUser(AbstractUser):
 
     username = models.CharField(
-        verbose_name="Логин", unique=True, max_length=100
+        verbose_name="Логин", unique=True, max_length=100,
     )
 
     email = models.EmailField(verbose_name="Email", null=False, unique=True)
@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
         verbose_name="Фамилия", max_length=100, blank=True
     )
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
     class Meta:
         ordering = ['id']
