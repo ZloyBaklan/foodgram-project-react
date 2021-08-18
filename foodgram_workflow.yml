@@ -54,7 +54,7 @@ jobs:
                host: ${{ secrets.HOST }}
                username: ${{ secrets.USER }}
                key: ${{ secrets.SSH_KEY }}
-               passphrase: $ {{ secrets.PASSPHRASE }}
+               # passphrase: $ {{ secrets.PASSPHRASE }}
                stack_file_name: docker-compose.yaml
                script: |
                   sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram-project-react:latest
