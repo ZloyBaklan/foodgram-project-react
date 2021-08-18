@@ -21,10 +21,8 @@ services:
       depends_on:
         - db
     backend:
-        build:
-          context: ../backend
-          dockerfile: ./Dockerfile
-                
+        image: zloybaklan/infra_backend:latest
+        build: ./backend/
         restart: always
         volumes:
             - static_value:/code/dj_static/
