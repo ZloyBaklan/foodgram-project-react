@@ -12,7 +12,7 @@ class CustomUser(AbstractUser):
         ordering = ['id']
 
     def __str__(self):
-        return f'{self.email} успешно создан!'
+        return f'{self.email} успешно создан.'
 
 
 User = CustomUser
