@@ -22,7 +22,6 @@ services:
         - db
     backend:
         image: zloybaklan/infra_backend:latest
-        build: ./backend/
         restart: always
         volumes:
             - static_value:/code/dj_static/
