@@ -64,13 +64,16 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create': 'users.serializers.CurrentUserSerializer',
         'user': 'users.serializers.CurrentUserSerializer',
-        'current_user': 'users.serializers.userProfileSerializer'
+        'current_user': 'users.serializers.CurrentUserSerializer'
     },
     'HIDE_USERS': False,
     'PERMISSIONS': {
+        'activation': ['rest_framework.permissions.AllowAny'],
         'user': ['rest_framework.permissions.IsAuthenticated'],
         'user_create': ['rest_framework.permissions.AllowAny'],
-        'user_list': ['rest_framework.permissions.AllowAny']
+        'user_list': ['rest_framework.permissions.AllowAny'],
+        'token_create': ['rest_framework.permissions.AllowAny'],
+        'token_destroy': ['rest_framework.permissions.IsAuthenticated'],
     }
 }
 
