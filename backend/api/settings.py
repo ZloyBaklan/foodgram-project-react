@@ -27,7 +27,7 @@ SECRET_KEY = 'cni(48#_*bkk2c57w=^k=bstna01859hz3p(xj@2ioie1msc('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Посмотрите пожалуйста файл README
+# Посмотрите пожалуйста файл README.
 ALLOWED_HOSTS = ['84.201.179.137', 'backend', 'localhost', '127.0.0.1']
 
 
