@@ -11,20 +11,15 @@ services:
             - postgres_data:/var/lib/postgresql/data/
         restart: always
         env_file:
-            - ../backend/.env
+            - ./.env
     frontend:
-      build:
-        context: ../frontend
-        dockerfile: Dockerfile
+      image: zloybaklan/infra_frontend_1:latest
       volumes:
-        - ../frontend/:/app/result_build/
+        - ./frontend/:/app/result_build/
       depends_on:
         - db
     backend:
-        build:
-          context: ../backend
-          dockerfile: ./Dockerfile
-                
+        image: zloybaklan/infra_backend_1:latest
         restart: always
         volumes:
             - static_value:/code/dj_static/
@@ -32,7 +27,7 @@ services:
         depends_on:
             - db
         env_file:
-            - ../backend/.env
+            - ./.env
     
     nginx:
         image: nginx:1.19.3

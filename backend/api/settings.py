@@ -27,7 +27,7 @@ SECRET_KEY = 'cni(48#_*bkk2c57w=^k=bstna01859hz3p(xj@2ioie1msc('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['130.193.54.244', 'backend', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['84.201.179.137', 'backend', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -64,13 +64,16 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create': 'users.serializers.CurrentUserSerializer',
         'user': 'users.serializers.CurrentUserSerializer',
-        'current_user': 'users.serializers.UserProfileSerializer'
+        'current_user': 'users.serializers.CurrentUserSerializer'
     },
     'HIDE_USERS': False,
     'PERMISSIONS': {
+        'activation': ['rest_framework.permissions.AllowAny'],
         'user': ['rest_framework.permissions.IsAuthenticated'],
         'user_create': ['rest_framework.permissions.AllowAny'],
-        'user_list': ['rest_framework.permissions.AllowAny']
+        'user_list': ['rest_framework.permissions.AllowAny'],
+        'token_create': ['rest_framework.permissions.AllowAny'],
+        'token_destroy': ['rest_framework.permissions.IsAuthenticated'],
     }
 }
 
