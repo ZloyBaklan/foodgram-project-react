@@ -13,17 +13,13 @@ services:
         env_file:
             - ./.env
     frontend:
-      build:
-        context: ./frontend
-        dockerfile: Dockerfile
+      image: zloybaklan/infra_frontend:latest
       volumes:
         - ./frontend/:/app/result_build/
       depends_on:
         - db
     backend:
-        build:
-          context: ./backend
-          dockerfile: Dockerfile
+        image: zloybaklan/infra_backend:latest
         restart: always
         volumes:
             - static_value:/code/dj_static/
