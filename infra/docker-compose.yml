@@ -11,13 +11,13 @@ services:
             - postgres_data:/var/lib/postgresql/data/
         restart: always
         env_file:
-            - ./.env
+            - ./backend/.env
     frontend:
       build:
-        context: ../frontend
+        context: ./frontend
         dockerfile: Dockerfile
       volumes:
-        - ../frontend/:/app/result_build/
+        - ./frontend/:/app/result_build/
       depends_on:
         - db
     backend:
@@ -29,7 +29,7 @@ services:
         depends_on:
             - db
         env_file:
-            - ./.env
+            - ./backend/.env
     
     nginx:
         image: nginx:1.19.3
