@@ -19,5 +19,8 @@ class Tag(models.Model):
                             help_text='Ссылка тега')
     color = ColorField(choices=COLOR_CHOICES, verbose_name='Цвет тэга')
 
+    class Meta:
+        verbose_name = 'Тэг'
+
     def __str__(self):
         return self.name

@@ -9,7 +9,7 @@ class Ingredient(models.Model):
                                         null=False)
 
     class Meta:
-        # verbose_name = 'Ингредиент'
+        verbose_name = 'Ингредиент'
         ordering = ['id']
 
     def __str__(self):

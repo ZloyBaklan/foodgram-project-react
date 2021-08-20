@@ -27,6 +27,7 @@ class Follow(models.Model):
                              related_name='follower')
 
     class Meta:
+        verbose_name = 'Пользователь'
         UniqueConstraint(fields=['following', 'user'], name='follow_unique')
 
     def __str__(self):

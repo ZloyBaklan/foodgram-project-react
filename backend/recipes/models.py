@@ -29,6 +29,7 @@ class Recipe(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Рецепт'
         ordering = ['-pub_date']  # tags
 
     def __str__(self):

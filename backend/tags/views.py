@@ -14,12 +14,6 @@ class TagView(ListCreateDestroyModelViewSet):
     filterset_fields = ['id', ]
     http_method_names = ['get', 'post']
 
-    def get_queryset(self):
-        # original qs
-        qs = super().get_queryset()
-        # filter by a variable captured from url, for example
-        return qs
-
     def post(self, request, *args, **kwargs):
         serializer = TagSerializer(data=request.data)
         if serializer.is_valid():
