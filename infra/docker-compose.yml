@@ -22,8 +22,8 @@ services:
         image: zloybaklan/infra_backend_1:latest
         restart: always
         volumes:
-            - static_value:/code/dj_static/
-            - media_value:/code/dj_media/
+            - static_value:/var/html/dj_static/
+            - media_value:/var/html/dj_media/
         depends_on:
             - db
         env_file:
