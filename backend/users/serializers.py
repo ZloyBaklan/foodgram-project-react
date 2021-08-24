@@ -84,7 +84,7 @@ class CurrentUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'id', 'is_subscribed',
-                  'first_name', 'last_name')
+                  'first_name', 'last_name', 'password')
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
