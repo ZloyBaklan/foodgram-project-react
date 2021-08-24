@@ -9,10 +9,7 @@ services:
         env_file:
             - ./.env
     frontend:
-        container_name: frontend
-        build:
-          context: ../frontend
-          dockerfile: Dockerfile
+        image: zloybaklan/infra_frontend_1:latest
         volumes:
             - ../frontend/:/app/result_build/
         depends_on:
