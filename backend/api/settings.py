@@ -44,12 +44,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    'djoser',
     'colorfield',
     # 'taggit'
     # Project apps
-    'users',
     'recipes',
+    'users',
+    'djoser',
     'ingredients',
     'tags'
 ]
