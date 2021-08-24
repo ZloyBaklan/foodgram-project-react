@@ -1,3 +1,4 @@
+from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -78,13 +79,16 @@ class FollowListSerializer(serializers.ModelSerializer):
         return obj.recipes.count()
 
 
-class CurrentUserSerializer(serializers.ModelSerializer):
+class CurrentUserSerializer(UserCreateSerializer):
     is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ('username', 'email', 'id', 'is_subscribed',
                   'first_name', 'last_name', 'password')
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
