@@ -1,10 +1,11 @@
 from djoser.serializers import UserCreateSerializer
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
 from .models import CustomUser, Follow
 
-User = CustomUser
+User = get_user_model()
 
 
 class UserFollowSerializer(serializers.ModelSerializer):
