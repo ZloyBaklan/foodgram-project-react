@@ -8,7 +8,6 @@ RUN pip install -r requirements.txt
 
 COPY ./backend .
 
-RUN python manage.py makemigrations --noinput
 RUN python manage.py collectstatic --noinput
 
 CMD gunicorn api.wsgi:application --bind 0.0.0.0:8000
