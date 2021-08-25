@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cni(48#_*bkk2c57w=^k=bstna01859hz3p(xj@2ioie1msc('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', default=True),
 
 # Посмотрите пожалуйста файл README.
 ALLOWED_HOSTS = ['84.201.179.137', 'backend', 'localhost', '127.0.0.1']
@@ -61,11 +61,11 @@ DJOSER = {
     'USER_ID_FIELD': 'id',
     'PASSWORD_RESET_CONFIRM_URL': 'set_password/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': False,
-    # 'SERIALIZERS': {
-    #    'user_create': 'users.serializers.CurrentUserSerializer',
-    #    'user': 'users.serializers.CurrentUserSerializer',
-    #    'current_user': 'users.serializers.CurrentUserSerializer',
-    # },
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.CurrentUserSerializer',
+        'user': 'users.serializers.CurrentUserSerializer',
+        'current_user': 'users.serializers.CurrentUserSerializer',
+    },
     'HIDE_USERS': False,
     'PERMISSIONS': {
         'activation': 'rest_framework.permissions.AllowAny',
@@ -114,12 +114,15 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DB_ENGINE'),
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', default="foodgram"),
+        'USER': os.environ.get('POSTGRES_USER', default="foodgram_user"),
+        'PASSWORD': os.environ.get(
+            'POSTGRES_PASSWORD',
+            default='1234qwerty5678'
+        ),
+        'HOST': os.environ.get('DB_HOST', default='localhost'),
+        'PORT': os.environ.get('DB_PORT', default='5432'),
     }
 }
 
