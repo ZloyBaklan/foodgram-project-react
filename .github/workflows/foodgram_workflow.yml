@@ -67,14 +67,8 @@ jobs:
                   echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
                   echo DB_HOST=${{ secrets.DB_HOST }} >> .env
                   echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-                  sudo docker-compose down -v
-                  sudo docker-compose up -d --build
-                  sudo docker-compose exec -T backend python manage.py makemigrations users
-                  sudo docker-compose exec -T backend python manage.py makemigrations tags
-                  sudo docker-compose exec -T backend python manage.py makemigrations ingredients
-                  sudo docker-compose exec -T backend python manage.py makemigrations recipes
-                  sudo docker-compose exec -T backend python manage.py makemigrations --no-input
-                  sudo docker-compose exec -T backend python manage.py migrate --noinput
+                  sudo docker-compose down
+                  sudo docker-compose up -d
                   sudo docker-compose exec -T backend python manage.py collectstatic --no-input
     send_message:
          runs-on: ubuntu-latest
