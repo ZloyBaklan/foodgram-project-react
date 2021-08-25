@@ -14,7 +14,7 @@ urlpatterns = [
     path('users/<int:following_id>/subscribe/', FollowApiView.as_view()),
     path('users/subscriptions/', FollowListApiView.as_view()),
     # path('', include('djoser.urls')),
-    re_path(r'^auth/', include(views.obtain_auth_token)),
+    re_path(r'^auth/token/login/', include(views.obtain_auth_token)),
     # path(
     #    'auth/token/login/',
     #    views_dj.TokenCreateView.as_view(),
