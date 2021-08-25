@@ -1,4 +1,4 @@
-from django.urls import include,path
+from django.urls import include, path
 
 from .views import FollowApiView, FollowListApiView
 
