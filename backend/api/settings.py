@@ -61,20 +61,20 @@ DJOSER = {
     'USER_ID_FIELD': 'id',
     'PASSWORD_RESET_CONFIRM_URL': 'set_password/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': False,
-    'SERIALIZERS': {
-        'user_create': 'users.serializers.CurrentUserSerializer',
-        'user': 'users.serializers.CurrentUserSerializer',
-        'current_user': 'users.serializers.CurrentUserSerializer',
-    },
+    # 'SERIALIZERS': {
+    #    'user_create': 'users.serializers.CurrentUserSerializer',
+    #    'user': 'users.serializers.CurrentUserSerializer',
+    #    'current_user': 'users.serializers.CurrentUserSerializer',
+    # },
     'HIDE_USERS': False,
-    'PERMISSIONS': {
-        'activation': 'rest_framework.permissions.AllowAny',
-        'user': 'rest_framework.permissions.IsAuthenticated',
-        'user_create': 'rest_framework.permissions.AllowAny',
-        'user_list': 'rest_framework.permissions.AllowAny',
-        'token_create': 'rest_framework.permissions.AllowAny',
-        'token_destroy': 'rest_framework.permissions.IsAuthenticated',
-    }
+    # 'PERMISSIONS': {
+    #    'activation': 'rest_framework.permissions.AllowAny',
+    #    'user': 'rest_framework.permissions.IsAuthenticated',
+    #    'user_create': 'rest_framework.permissions.AllowAny',
+    #    'user_list': 'rest_framework.permissions.AllowAny',
+    #    'token_create': 'rest_framework.permissions.AllowAny',
+    #    'token_destroy': 'rest_framework.permissions.IsAuthenticated',
+    # }
 }
 
 MIDDLEWARE = [

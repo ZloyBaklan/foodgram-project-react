@@ -85,7 +85,15 @@ class CurrentUserSerializer(UserCreateSerializer):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = (
+            'id',
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'is_subscribed',
+            'password'
+        )
         extra_kwargs = {
             'password': {'write_only': True}
         }
