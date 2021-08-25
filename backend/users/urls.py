@@ -10,12 +10,12 @@ urlpatterns = [
     path('users/subscriptions/', FollowListApiView.as_view()),
     path('', include('djoser.urls')),
     path(
-        'api/auth/token/login/',
+        'auth/token/login/',
         views_dj.TokenCreateView.as_view(),
         name='login'
     ),
     path(
-        'api/auth/token/logout/',
+        'auth/token/logout/',
         views_dj.TokenDestroyView.as_view(),
         name='login'
     )
