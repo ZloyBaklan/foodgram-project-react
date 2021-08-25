@@ -4,11 +4,12 @@ from django.db.models import UniqueConstraint
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(verbose_name="Email", null=False, unique=True)
-    # USERNAME_FIELD = 'email'
+    email = models.EmailField(verbose_name='email', null=False, unique=True)
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     class Meta:
+        verbose_name = 'Пользователь'
         ordering = ['id']
 
     def __str__(self):
@@ -27,7 +28,7 @@ class Follow(models.Model):
                              related_name='follower')
 
     class Meta:
-        verbose_name = 'Пользователь'
+        verbose_name = 'Подписки'
         UniqueConstraint(fields=['following', 'user'], name='follow_unique')
 
     def __str__(self):

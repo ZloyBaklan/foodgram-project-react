@@ -16,7 +16,7 @@ from .serializers import (
 
 User = get_user_model()
 
-
+# Попытка починить ошибку Unable to login with provided credentials
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = CurrentUserSerializer
