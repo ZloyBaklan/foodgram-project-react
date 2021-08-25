@@ -22,14 +22,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = CurrentUserSerializer
     permission_classes = [AllowAny]
 
-    def perform_create(self, serializer):
-        username = serializer.validated_data['username']
-        password = serializer.validated_data['password']
-        serializer.save()
-        user = get_object_or_404(User, username=username)
-        user.set_password(password)
-        user.save()
-
     @action(
         detail=False,
         methods=['get'],
