@@ -16,7 +16,7 @@ from .serializers import (FavoriteSerializer, RecipeFullSerializer,
 
 
 class RecipeViewSet(ListCreateDestroyModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly, ]
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
     pagination_class = PageNumberPagination
@@ -37,7 +37,7 @@ class RecipeViewSet(ListCreateDestroyModelViewSet):
 
 class FavoriteApiView(APIView):
     # queryset = Follow.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
 
     def get(self, request, favorite_id):
         user = request.user
@@ -64,7 +64,7 @@ class FavoriteApiView(APIView):
 
 
 class ShoppingView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
 
     def get(self, request, recipe_id):
         user = request.user
@@ -91,7 +91,7 @@ class ShoppingView(APIView):
 
 
 class DownloadShoppingCart(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
 
     def get(self, request):
         shopping_list = {}

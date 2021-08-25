@@ -1,10 +1,11 @@
 from djoser.serializers import UserCreateSerializer
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from .models import CustomUser, Follow
+from .models import Follow
 
-User = CustomUser
+User = get_user_model()
 
 
 class UserFollowSerializer(serializers.ModelSerializer):
@@ -84,8 +85,15 @@ class CurrentUserSerializer(UserCreateSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'id', 'is_subscribed',
-                  'first_name', 'last_name', 'password')
+        fields = (
+            'id',
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'is_subscribed',
+            'password'
+        )
         extra_kwargs = {
             'password': {'write_only': True}
         }

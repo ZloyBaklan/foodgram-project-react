@@ -1,14 +1,17 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.db.models import UniqueConstraint
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(verbose_name="Email", null=False, unique=True)
+    email = models.EmailField(_("email address"), null=False, unique=True)
+    objects = UserManager()
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
+        verbose_name = 'Пользователь'
         ordering = ['id']
 
     def __str__(self):
@@ -27,7 +30,7 @@ class Follow(models.Model):
                              related_name='follower')
 
     class Meta:
-        verbose_name = 'Пользователь'
+        verbose_name = 'Подписки'
         UniqueConstraint(fields=['following', 'user'], name='follow_unique')
 
     def __str__(self):
