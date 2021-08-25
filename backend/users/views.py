@@ -1,18 +1,20 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from djoser.serializers import SetPasswordSerializer
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly)
+from rest_framework.permissions import (
+    AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .permissions import IsOwnerProfile
 from .models import CustomUser, Follow
 # from .permissions import IsOwnerProfile
-from .serializers import FollowListSerializer, UserFollowSerializer, CurrentUserSerializer
+from .serializers import (
+    FollowListSerializer, UserFollowSerializer, CurrentUserSerializer
+)
 
-User=get_user_model()
+User = get_user_model()
 
 
 class UserViewSet(viewsets.ModelViewSet):
