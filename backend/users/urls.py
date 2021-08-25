@@ -1,6 +1,6 @@
-from django.urls import include, path,  re_path
+from django.urls import include, path, re_path
 
-#from djoser import views as views_dj
+# from djoser import views as views_dj
 
 from .views import FollowApiView, FollowListApiView
 
@@ -14,10 +14,10 @@ urlpatterns = [
     #    'auth/token/login/',
     #    views_dj.TokenCreateView.as_view(),
     #    name='login'
-    #),
+    # ),
     # path(
     #    'auth/token/logout/',
     #    views_dj.TokenDestroyView.as_view(),
     #    name='login'
-    #)
+    # )
 ]
