@@ -1,7 +1,7 @@
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.utils import model_meta
+# from rest_framework.utils import model_meta
 from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Follow
@@ -114,7 +114,9 @@ class CurrentUserSerializer(UserCreateSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-'''    
+
+
+'''
     def create(self, validated_data):
         serializers.raise_errors_on_nested_writes('create',
                                                   self, validated_data)
