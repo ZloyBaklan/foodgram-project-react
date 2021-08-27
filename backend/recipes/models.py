@@ -12,11 +12,12 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='Автор рецепта',
                                related_name='author')
-    ingredients = models.ManyToManyField(Ingredient, 
-                                         related_name='ingredients', 
+    ingredients = models.ManyToManyField(Ingredient,
+                                         related_name='ingredients',
                                          through='IngredientAmount',
                                          verbose_name='Ингредиенты')
-    tag = models.ManyToManyField(Tag, related_name='tags', verbose_name='Хэштег')
+    tag = models.ManyToManyField(Tag, related_name='tags',
+                                 verbose_name='Хэштег')
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True,
                                     db_index=True)
     text = models.TextField(verbose_name='Описание',
