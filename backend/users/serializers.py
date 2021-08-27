@@ -83,7 +83,7 @@ class FollowListSerializer(serializers.ModelSerializer):
 
 class CurrentUserSerializer(UserCreateSerializer):
     is_subscribed = serializers.SerializerMethodField()
-
+    password = serializers.CharField(write_only=True)
     class Meta:
         model = User
         fields = (
@@ -93,16 +93,14 @@ class CurrentUserSerializer(UserCreateSerializer):
             'first_name',
             'last_name',
             'is_subscribed',
-            'password'
         )
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
 
-    def save(self, commit=True):
-        user = super(CurrentUserSerializer, self).save(commit=False)
-        if commit:
-            user.save()
+    def create(self, validated_data):
+        user = User.objects.create(
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
         return user
 
     def get_is_subscribed(self, obj):
