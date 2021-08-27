@@ -1,7 +1,7 @@
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-# from rest_framework.utils import model_meta
+from rest_framework.utils import model_meta
 from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Follow
@@ -107,17 +107,6 @@ class CurrentUserSerializer(UserCreateSerializer):
         return Follow.objects.filter(following=obj, user=user).exists()
 
     def create(self, validated_data):
-        user = User(
-            email=validated_data['email'],
-            # username=validated_data['username']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
-
-
-'''
-    def create(self, validated_data):
         serializers.raise_errors_on_nested_writes('create',
                                                   self, validated_data)
         ModelClass = self.Meta.model
@@ -131,8 +120,8 @@ class CurrentUserSerializer(UserCreateSerializer):
                 **validated_data
             )
         except TypeError:
-            ('Unexpected type of tagged object')
-'''
+            tb = traceback.format_exc()
+            msg = ('Unexpected type of tagged object')
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
