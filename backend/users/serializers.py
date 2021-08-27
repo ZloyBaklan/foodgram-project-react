@@ -99,6 +99,12 @@ class CurrentUserSerializer(UserCreateSerializer):
             'password': {'write_only': True}
         }
 
+    def save(self, commit=True):
+        user = super(CurrentUserSerializer, self).save(commit=False)
+        if commit:
+            user.save()
+        return user
+
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
         if request is None or request.user.is_anonymous:
