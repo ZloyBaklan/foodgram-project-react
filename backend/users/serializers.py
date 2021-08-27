@@ -84,6 +84,7 @@ class FollowListSerializer(serializers.ModelSerializer):
 class CurrentUserSerializer(UserCreateSerializer):
     is_subscribed = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
+
     class Meta:
         model = User
         fields = (
