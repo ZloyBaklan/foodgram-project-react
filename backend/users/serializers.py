@@ -106,23 +106,6 @@ class CurrentUserSerializer(UserCreateSerializer):
         user = request.user
         return Follow.objects.filter(following=obj, user=user).exists()
 
-    def create(self, validated_data):
-        serializers.raise_errors_on_nested_writes('create',
-                                                  self, validated_data)
-        ModelClass = self.Meta.model
-        info = model_meta.get_field_info(ModelClass)
-        many_to_many = {}
-        for field_name, relation_info in info.relations.items():
-            if relation_info.to_many and (field_name in validated_data):
-                many_to_many[field_name] = validated_data.pop(field_name)
-        try:
-            instance = ModelClass._default_manager.create_user(
-                **validated_data
-            )
-        except TypeError:
-            tb = traceback.format_exc()
-            msg = ('Unexpected type of tagged object')
-
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = CurrentUserSerializer(read_only=True)

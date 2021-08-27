@@ -1,14 +1,21 @@
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+
+from .managers import CustomUserManager
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), null=False, unique=True)
-    objects = UserManager()
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(default=timezone.now)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    objects = CustomUserManager()
 
     class Meta:
         verbose_name = 'Пользователь'
