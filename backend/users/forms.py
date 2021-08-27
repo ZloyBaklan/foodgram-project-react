@@ -1,3 +1,4 @@
+'''
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import CustomUser
@@ -16,3 +17,4 @@ class ussignup(UserCreationForm):
         if commit:
             user.save()
         return user
+'''
