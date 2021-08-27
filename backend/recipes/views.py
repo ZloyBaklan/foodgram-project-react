@@ -3,12 +3,12 @@ from django.shortcuts import HttpResponse, get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import (IsAuthenticated,
-                                        IsAuthenticatedOrReadOnly)
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.views import ListCreateDestroyModelViewSet
+from .filters import RecipeFilter
 from .models import Favorite, IngredientAmount, Recipe, ShoppingList
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (FavoriteSerializer, RecipeFullSerializer,
@@ -16,13 +16,12 @@ from .serializers import (FavoriteSerializer, RecipeFullSerializer,
 
 
 class RecipeViewSet(ListCreateDestroyModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly, ]
-    serializer_class = RecipeSerializer
+    permission_classes = [IsOwnerOrReadOnly, ]
     queryset = Recipe.objects.all()
     pagination_class = PageNumberPagination
     pagination_class.page_size = 6
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['id', ]
+    filterset_class = RecipeFilter
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PUT', 'PATCH'):
@@ -58,8 +57,7 @@ class FavoriteApiView(APIView):
     def delete(self, request, favorite_id):
         user = request.user
         recipe = get_object_or_404(Recipe, id=favorite_id)
-        favorite = get_object_or_404(Favorite, user=user, favorite=recipe)
-        favorite.delete()
+        Favorite.objects.filter(user=user, favorite=recipe).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -72,8 +70,9 @@ class ShoppingView(APIView):
             'recipe': recipe_id,
             'user': user.id
         }
+        context = {'request': request}
         serializer = ShoppingListSerializer(data=data,
-                                            context={'request': request})
+                                            context=context)
         if not serializer.is_valid():
             return Response(
                 serializer.errors,
@@ -85,8 +84,7 @@ class ShoppingView(APIView):
     def delete(self, request, recipe_id):
         user = request.user
         recipe = get_object_or_404(Recipe, id=recipe_id)
-        in_list = get_object_or_404(ShoppingList, user=user, recipe=recipe)
-        in_list.delete()
+        ShoppingList.objects.filter(user=user, recipe=recipe).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

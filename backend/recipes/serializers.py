@@ -3,9 +3,10 @@ from drf_extra_fields.fields import Base64ImageField
 from ingredients.models import Ingredient
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from tags.models import Tag
-from users.serializers import CurrentUserSerializer
 
+from users.serializers import CurrentUserSerializer
+from tags.serializers import TagSerializer
+from tags.models import Tag
 from .models import Favorite, IngredientAmount, Recipe, ShoppingList
 
 
@@ -35,11 +36,8 @@ class AddToIngredientAmountSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='username'
-    )
-    tag = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
+    author = CurrentUserSerializer(read_only=True)
+    tags = TagSerializer(read_only=True, many=True)
     ingredients = serializers.SerializerMethodField()
     is_favorite = serializers.SerializerMethodField()
     is_in_shopping_cart = serializers.SerializerMethodField()
@@ -84,8 +82,9 @@ class RecipeFullSerializer(serializers.ModelSerializer):
     image = Base64ImageField(use_url=True)
     author = CurrentUserSerializer(read_only=True)
     ingredients = AddToIngredientAmountSerializer(many=True)
-    tags = serializers.PrimaryKeyRelatedField(many=True,
-                                              queryset=Tag.objects.all())
+    tags = serializers.PrimaryKeyRelatedField(
+        queryset=Tag.objects.all(), many=True
+    )
     cooking_time = serializers.IntegerField()
 
     class Meta:
