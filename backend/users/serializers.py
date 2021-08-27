@@ -94,6 +94,7 @@ class CurrentUserSerializer(UserCreateSerializer):
             'first_name',
             'last_name',
             'is_subscribed',
+            'password'
         )
 
     def create(self, validated_data):
