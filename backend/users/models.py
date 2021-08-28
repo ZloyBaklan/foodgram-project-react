@@ -10,12 +10,15 @@ from .managers import CustomUserManager
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), null=False, unique=True)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    username = models.CharField(max_length=150, unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
-    objects = CustomUserManager()
+    # objects = CustomUserManager()
 
     class Meta:
         verbose_name = 'Пользователь'

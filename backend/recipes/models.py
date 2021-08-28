@@ -59,9 +59,8 @@ class ShoppingList(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
                                related_name='purchases',
                                verbose_name='Покупка')
-    added_time = models.DateTimeField(
-        auto_now_add=True, verbose_name='Дата добавления'
-    )
+    added_time = models.DateTimeField(default='timezone.now',
+                                      verbose_name='Дата добавления')
 
     def __str__(self):
         return f'In {self.user} shopping list: {self.recipe}'
