@@ -1,5 +1,5 @@
-from django.urls import include, path, re_path
-from rest_framework.authtoken import views
+from django.urls import include, path
+# from rest_framework.authtoken import views
 
 from .views import FollowApiView, FollowListApiView
 

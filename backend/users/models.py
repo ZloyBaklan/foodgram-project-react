@@ -5,7 +5,7 @@ from django.db.models import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
-from .managers import CustomUserManager
+# from .managers import CustomUserManager
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
