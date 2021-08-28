@@ -3,21 +3,12 @@ from django.db import models
 
 
 class Tag(models.Model):
-    COLOR_CHOICES = [
-        ("#FFFFFF", "white"),
-        ("#000000", "black"),
-        ("#00FF00", "green"),
-        ("#FF00FF", "pink panther"),
-        ("#FF9900", "orange"),
-        ("#CC0000", "cherry"),
-        ("#CC00FF", "purple"),
-
-    ]
     name = models.CharField(max_length=200, verbose_name='Название тега',
-                            null=False)
+                            null=False, unique=True)
     slug = models.SlugField(verbose_name='Ссылка', unique=True,
                             help_text='Ссылка тега')
-    color = ColorField(choices=COLOR_CHOICES, verbose_name='Цвет тэга')
+    color = models.CharField(max_length=7, default='#ffffff',
+                             unique=True, verbose_name='Цвет тэга')
 
     class Meta:
         verbose_name = 'Тэг'
