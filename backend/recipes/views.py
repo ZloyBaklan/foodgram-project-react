@@ -3,19 +3,32 @@ from django.shortcuts import HttpResponse, get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
 from api.views import ListCreateDestroyModelViewSet
-from .filters import RecipeFilter
-from .models import Favorite, IngredientAmount, Recipe, ShoppingList
+from .filters import RecipeFilter, IngredientFilter
+from .models import (Favorite, IngredientAmount, Ingredient, 
+                     Recipe, ShoppingList)
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (FavoriteSerializer, RecipeFullSerializer,
-                          RecipeSerializer, ShoppingListSerializer)
+                          RecipeSerializer, ShoppingListSerializer,
+                          IngredientSerializer)
 
 
-class RecipeViewSet(ListCreateDestroyModelViewSet):
+class IngredientView(ListCreateDestroyModelViewSet):
+    serializer_class = IngredientSerializer
+    permission_classes = [AllowAny, ]
+    queryset = Ingredient.objects.all()
+    filter_backends = [DjangoFilterBackend, ]
+    filter_class = IngredientFilter
+    pagination_class = None
+    http_method_names = ['get']
+
+
+class RecipeViewSet(ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly, ]
     queryset = Recipe.objects.all()
     pagination_class = PageNumberPagination
@@ -41,7 +54,7 @@ class FavoriteApiView(APIView):
     def get(self, request, favorite_id):
         user = request.user
         data = {
-            'favorite': favorite_id,
+            'recipe': favorite_id,
             'user': user.id
         }
         serializer = FavoriteSerializer(data=data,
@@ -57,7 +70,7 @@ class FavoriteApiView(APIView):
     def delete(self, request, favorite_id):
         user = request.user
         recipe = get_object_or_404(Recipe, id=favorite_id)
-        Favorite.objects.filter(user=user, favorite=recipe).delete()
+        Favorite.objects.filter(user=user, recipe=recipe).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
