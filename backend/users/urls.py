@@ -9,10 +9,10 @@ from .views import FollowApiView, FollowListApiView
 
 urlpatterns = [
     # path('', include(router.urls)),
+    path('users/subscriptions/', FollowListApiView.as_view()),
     path('', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('users/<int:following_id>/subscribe/', FollowApiView.as_view()),
-    path('users/subscriptions/', FollowListApiView.as_view()),
     # path('', include('djoser.urls')),
     # re_path(r'^auth/token/login/', include(views.obtain_auth_token)),
     # path(
