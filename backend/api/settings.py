@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'recipes',
     'users',
     'djoser',
-    'ingredients',
     'tags'
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -67,14 +66,14 @@ DJOSER = {
         'current_user': 'users.serializers.CurrentUserSerializer',
     },
     'HIDE_USERS': False,
-    'PERMISSIONS': {
-        'activation': 'rest_framework.permissions.AllowAny',
-        'user': 'rest_framework.permissions.IsAuthenticated',
-        'user_create': 'rest_framework.permissions.AllowAny',
-        'user_list': 'rest_framework.permissions.AllowAny',
-        'token_create': 'rest_framework.permissions.AllowAny',
-        'token_destroy': 'rest_framework.permissions.IsAuthenticated',
-    }
+    # 'PERMISSIONS': {
+    #    'activation': 'rest_framework.permissions.AllowAny',
+    #    'user': 'rest_framework.permissions.IsAuthenticated',
+    #    'user_create': 'rest_framework.permissions.AllowAny',
+    #    'user_list': 'rest_framework.permissions.AllowAny',
+    #    'token_create': 'rest_framework.permissions.AllowAny',
+    #    'token_destroy': 'rest_framework.permissions.IsAuthenticated',
+    # }
 }
 
 MIDDLEWARE = [
@@ -111,18 +110,15 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', default="foodgram"),
-        'USER': os.environ.get('POSTGRES_USER', default="foodgram_user"),
-        'PASSWORD': os.environ.get(
-            'POSTGRES_PASSWORD',
-            default='1234qwerty5678'
-        ),
-        'HOST': os.environ.get('DB_HOST', default='localhost'),
-        'PORT': os.environ.get('DB_PORT', default='5432'),
+        'NAME': 'foodgram',
+        'USER': 'foodgram_user',
+        'PASSWORD': '1234qwerty5678',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 '''
@@ -132,7 +128,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-'''
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
