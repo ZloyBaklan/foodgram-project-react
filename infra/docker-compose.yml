@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
     db:
-        image: postgres:latest
+        image: foodgram:latest
         volumes:
             - postgres_data:/var/lib/postgresql/data/
         restart: always
