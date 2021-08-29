@@ -1,6 +1,7 @@
-from djoser.serializers import UserCreateSerializer
+# from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+# from rest_framework.utils import model_meta
 from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Follow
@@ -54,16 +55,19 @@ class FollowListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = (
+            'email', 'id', 'username', 'first_name', 'last_name',
+            'is_subscribed', 'recipes', 'recipes_count'
+        )
 
     def get_is_subscribed(self, user):
-        current = self.context.get('current')
-        other = current.following.all()
+        current_user = self.context.get('current_user')
+        other_user = user.following.all()
         if user.is_anonymous:
             return False
-        if other.count() == 0:
+        if other_user.count() == 0:
             return False
-        if Follow.objects.filter(user=user, following=current).exists():
+        if Follow.objects.filter(user=user, following=current_user).exists():
             return True
         return False
 
@@ -80,23 +84,21 @@ class FollowListSerializer(serializers.ModelSerializer):
         return obj.recipes.count()
 
 
-class CurrentUserSerializer(UserCreateSerializer):
+class CurrentUserSerializer(serializers.ModelSerializer):
     is_subscribed = serializers.SerializerMethodField()
+    password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
         fields = (
             'id',
-            'username',
             'email',
+            'is_subscribed',
+            'username',
             'first_name',
             'last_name',
-            'is_subscribed',
             'password'
         )
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
@@ -104,11 +106,3 @@ class CurrentUserSerializer(UserCreateSerializer):
             return False
         user = request.user
         return Follow.objects.filter(following=obj, user=user).exists()
-
-
-class UserProfileSerializer(serializers.ModelSerializer):
-    user = CurrentUserSerializer(read_only=True)
-
-    class Meta:
-        model = User
-        fields = '__all__'

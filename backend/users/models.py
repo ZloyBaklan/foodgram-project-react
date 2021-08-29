@@ -1,21 +1,24 @@
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import UniqueConstraint
-from django.utils.translation import gettext_lazy as _
+# from django.utils.translation import gettext_lazy as _
+# from django.utils import timezone
+
+# from .managers import CustomUserManager
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(_("email address"), null=False, unique=True)
-    objects = UserManager()
+    email = models.EmailField('email', null=False, unique=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    # objects = CustomUserManager()
 
     class Meta:
         verbose_name = 'Пользователь'
         ordering = ['id']
 
     def __str__(self):
-        return f'{self.email} успешно создан.'
+        return f'Пользователь {self.email}'
 
 
 User = CustomUser

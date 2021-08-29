@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'recipes',
     'users',
     'djoser',
-    'ingredients',
     'tags'
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -67,14 +66,14 @@ DJOSER = {
         'current_user': 'users.serializers.CurrentUserSerializer',
     },
     'HIDE_USERS': False,
-    'PERMISSIONS': {
-        'activation': 'rest_framework.permissions.AllowAny',
-        'user': 'rest_framework.permissions.IsAuthenticated',
-        'user_create': 'rest_framework.permissions.AllowAny',
-        'user_list': 'rest_framework.permissions.AllowAny',
-        'token_create': 'rest_framework.permissions.AllowAny',
-        'token_destroy': 'rest_framework.permissions.IsAuthenticated',
-    }
+    # 'PERMISSIONS': {
+    #    'activation': 'rest_framework.permissions.AllowAny',
+    #    'user': 'rest_framework.permissions.IsAuthenticated',
+    #    'user_create': 'rest_framework.permissions.AllowAny',
+    #    'user_list': 'rest_framework.permissions.AllowAny',
+    #    'token_create': 'rest_framework.permissions.AllowAny',
+    #    'token_destroy': 'rest_framework.permissions.IsAuthenticated',
+    # }
 }
 
 MIDDLEWARE = [
@@ -111,27 +110,35 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'foodgram',
+        'USER': 'foodgram_user',
+        'PASSWORD': '1234qwerty5678',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', default="foodgram"),
-        'USER': os.environ.get('POSTGRES_USER', default="foodgram_user"),
-        'PASSWORD': os.environ.get(
-            'POSTGRES_PASSWORD',
-            default='1234qwerty5678'
-        ),
-        'HOST': os.environ.get('DB_HOST', default='localhost'),
-        'PORT': os.environ.get('DB_PORT', default='5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ.get('DB_ENGINE'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
+    }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -179,9 +186,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_PERMISSION_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ),
+    ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
