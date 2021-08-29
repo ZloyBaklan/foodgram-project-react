@@ -24,7 +24,8 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(source='ingredient',
                                             read_only=True)
     name = serializers.SlugRelatedField(slug_field='name',
-                                        source='ingredient.name', read_only=True)
+                                        source='ingredient.name',
+                                        read_only=True)
     measurement_unit = serializers.SlugRelatedField(
         slug_field='measurement_unit',
         source='ingredient.measurement_unit', read_only=True
