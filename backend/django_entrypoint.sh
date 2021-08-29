@@ -1,5 +1,5 @@
 #!/bin/bash
-
+'''
 set -o errexit
 set -o pipefail
 set -o nounset
@@ -14,12 +14,12 @@ if [ "$POSTGRES_USER" = "postgres" ]; then
 
     echo "PostgreSQL is available"
 fi
-
+'''
 # Запускаем миграции, загружаем фикстуры, собираем и сжимаем статику
-python manage.py makemigrations --noinput
+python manage.py makemigrations
 
 echo "Making migrations."
-python manage.py migrate --noinput
+python manage.py migrate
 
 echo "Loading demo data from fixtures.json"
 python manage.py loaddata -i ingredients.json
@@ -27,11 +27,11 @@ python manage.py loaddata -i ingredients.json
 echo "Collecting static files."
 python manage.py collectstatic --noinput
 
-echo "Compressing static files."
-python manage.py compress
+# echo "Compressing static files."
+# python manage.py compress
 
 # Запускаем gunicorn на нашем $PORT
-echo "Starting gunicorn"
-gunicorn api.wsgi:application --bind 0.0.0.0:8000 \
+# echo "Starting gunicorn"
+# gunicorn api.wsgi:application --bind 0.0.0.0:8000 \
 
 exec "$@"
