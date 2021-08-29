@@ -10,7 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from api.views import ListCreateDestroyModelViewSet
 from .filters import RecipeFilter, IngredientFilter
-from .models import (Favorite, IngredientAmount, Ingredient, 
+from .models import (Favorite, IngredientAmount, Ingredient,
                      Recipe, ShoppingList)
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (FavoriteSerializer, RecipeFullSerializer,
