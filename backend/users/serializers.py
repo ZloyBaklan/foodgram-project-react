@@ -81,7 +81,7 @@ class FollowListSerializer(serializers.ModelSerializer):
         return obj.recipes.count()
 
 
-class CurrentUserSerializer(UserCreateSerializer):
+class CurrentUserSerializer(serializers.ModelSerializer):
     is_subscribed = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
 
@@ -96,14 +96,6 @@ class CurrentUserSerializer(UserCreateSerializer):
             'is_subscribed',
             'password'
         )
-
-    def create(self, validated_data):
-        user = User.objects.create(
-            username=validated_data['username']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
