@@ -1,5 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
@@ -8,16 +7,10 @@ from django.utils import timezone
 # from .managers import CustomUserManager
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_("email address"), null=False, unique=True)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    username = models.CharField(max_length=150, unique=True)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField(default=timezone.now)
+class CustomUser(AbstractUser):
+    email = models.EmailField('email', null=False, unique=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
     # objects = CustomUserManager()
 
     class Meta:
@@ -25,7 +18,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ordering = ['id']
 
     def __str__(self):
-        return f'{self.email} успешно создан.'
+        return f'Пользователь {self.email}'
 
 
 User = CustomUser
