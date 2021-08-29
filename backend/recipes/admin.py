@@ -39,6 +39,7 @@ class RecipeAdmin(admin.ModelAdmin):
         return list(obj.ingredients.all())
     ingredients.short_description = 'Ингредиенты'
 
+
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Favorite)
 admin.site.register(Ingredient, IngredientAdmin)
