@@ -32,7 +32,7 @@ class Recipe(models.Model):
                                          through='IngredientAmount',
                                          verbose_name='Ингредиенты')
     tags = models.ManyToManyField(Tag, related_name='tags',
-                                 verbose_name='Хэштег')
+                                  verbose_name='Хэштег')
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True,
                                     db_index=True)
     text = models.TextField(verbose_name='Описание',
@@ -57,7 +57,7 @@ class Favorite(models.Model):
     user = models.ForeignKey(User, related_name='favorites',
                              on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, related_name='favorites',
-                                 on_delete=models.CASCADE)
+                               on_delete=models.CASCADE)
     added = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата добавления в избранное'
     )
