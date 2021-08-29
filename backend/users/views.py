@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, generics
 from rest_framework.decorators import action
 from rest_framework.permissions import (
-    AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
+    AllowAny, IsAuthenticated
 )
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -26,7 +26,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(
         detail=False,
         methods=['get'],
-        permission_classes=[IsAuthenticated, ]
+        permission_classes=(IsAuthenticated, )
     )
     def me(self, request):
         serializer = self.get_serializer(self.request.user)
@@ -35,7 +35,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class FollowApiView(APIView):
     # queryset = Follow.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly, ]
+    permission_classes = [IsAuthenticated, ]
 
     def get(self, request, following_id):
         user = request.user
@@ -60,9 +60,8 @@ class FollowApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class FollowListApiView(APIView):
+class FollowListApiView(generics.ListAPIView):
     permission_classes = [IsAuthenticated, ]
-    # queryset = Follow.objects.all()
     serializer_class = FollowListSerializer
 
     def get_serializer_context(self):
