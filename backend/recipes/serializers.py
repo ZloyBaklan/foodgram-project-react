@@ -106,7 +106,6 @@ class RecipeFullSerializer(serializers.ModelSerializer):
             'name', 'text', 'cooking_time'
         )
 
-
     def create_bulk(self, recipe, ingredients_data):
         IngredientAmount.objects.bulk_create([IngredientAmount(
             ingredient=ingredient['ingredient'],
