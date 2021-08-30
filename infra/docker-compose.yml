@@ -2,11 +2,7 @@ version: '3.3'
 
 services:
     db:
-        image: postgres:latest
-        environment:
-            POSTGRES_PASSWORD: 1234qwerty5678
-            POSTGRES_USER: foodgram_user
-            POSTGRES_DB: foodgram
+        image: foodgram:latest
         volumes:
             - postgres_data:/var/lib/postgresql/data/
         restart: always
