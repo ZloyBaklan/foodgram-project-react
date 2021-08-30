@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+from django.contrib.sessions.models import Session
+Session.objects.all().delete()
 # import environ
 # env = environ.Env()
 # environ.Env.read_env()
