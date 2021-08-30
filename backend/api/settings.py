@@ -66,14 +66,21 @@ DJOSER = {
         'current_user': 'users.serializers.CurrentUserSerializer',
     },
     'HIDE_USERS': False,
-    # 'PERMISSIONS': {
-    #    'activation': 'rest_framework.permissions.AllowAny',
-    #    'user': 'rest_framework.permissions.IsAuthenticated',
-    #    'user_create': 'rest_framework.permissions.AllowAny',
-    #    'user_list': 'rest_framework.permissions.AllowAny',
-    #    'token_create': 'rest_framework.permissions.AllowAny',
-    #    'token_destroy': 'rest_framework.permissions.IsAuthenticated',
-    # }
+    'PERMISSIONS': {
+        'activation': ['rest_framework.permissions.AllowAny'],
+        'user': ['rest_framework.permissions.AllowAny'],
+        'password_reset_confirm': ['rest_framework.permissions.AllowAny'],
+        'set_password': ['djoser.permissions.CurrentUserOrAdmin'],
+        'username_reset': ['rest_framework.permissions.AllowAny'],
+        'username_reset_confirm': ['rest_framework.permissions.AllowAny'],
+        'set_username': ['djoser.permissions.CurrentUserOrAdmin'],
+        'user_create': ['rest_framework.permissions.AllowAny'],
+        'user_delete': ['djoser.permissions.CurrentUserOrAdmin'],
+        'user': ['rest_framework.permissions.AllowAny'],
+        'user_list': ['rest_framework.permissions.AllowAny'],
+        'token_create': ['rest_framework.permissions.AllowAny'],
+        'token_destroy': ['rest_framework.permissions.IsAuthenticated'],
+    }
 }
 
 MIDDLEWARE = [
@@ -131,12 +138,14 @@ DATABASES = {
 '''
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DB_ENGINE'),
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'ENGINE': os.environ.get(
+            'DB_ENGINE', default='django.db.backends.postgresql'
+        ),
+        'NAME': os.environ.get('DB_NAME', default='postgres'),
+        'USER': os.environ.get('POSTGRES_USER', default='postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', default='postgres'),
+        'HOST': os.environ.get('DB_HOST', default='db'),
+        'PORT': os.environ.get('DB_PORT', default='5432'),
     }
 }
 
@@ -199,10 +208,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,
 }
-'''
+
 # подключаем движок filebased.EmailBackend
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 # указываем директорию, в которую будут складываться файлы писем
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
-ADMIN_EMAIL = '<admin@foodgram.ru>'
-'''
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+# ADMIN_EMAIL = '<admin@foodgram.ru>'
+
