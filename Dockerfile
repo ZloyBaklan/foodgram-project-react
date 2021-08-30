@@ -4,7 +4,7 @@ WORKDIR /code
 
 COPY backend/requirements.txt requirements.txt
 
-COPY backend/django_entrypoint.sh
+COPY backend/django_entrypoint.sh django_entrypoint.sh
 
 RUN pip install -r requirements.txt
 
