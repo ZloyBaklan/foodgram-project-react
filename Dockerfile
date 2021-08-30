@@ -13,6 +13,7 @@ RUN chmod a+x django_entrypoint.sh
 ENTRYPOINT ['django_entrypoint.sh']
 
 # RUN chmod +x django_entrypoint.sh
+# CHECK
 # RUN python manage.py collectstatic --noinput
 # ENTRYPOINT django_entrypoint.sh
 
