@@ -8,8 +8,9 @@ RUN pip install -r requirements.txt
 
 COPY ./backend .
 
-RUN chmod a+x django_entrypoint.sh
-ENTRYPOINT django_entrypoint.sh
+ADD django_entrypoint.sh /django_entrypoint.sh
+RUN chmod a+x /django_entrypoint.sh
+ENTRYPOINT /django_entrypoint.sh
 
 # RUN chmod +x django_entrypoint.sh
 # CHECK
