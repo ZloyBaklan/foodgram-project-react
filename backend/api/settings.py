@@ -121,7 +121,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -139,7 +139,7 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),
     }
 }
-
+'''
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
