@@ -4,13 +4,15 @@ WORKDIR /code
 
 COPY backend/requirements.txt requirements.txt
 
+COPY backend/django_entrypoint.sh
+
 RUN pip install -r requirements.txt
 
 COPY ./backend .
 
-ADD django_entrypoint.sh /django_entrypoint.sh
-RUN chmod a+x /django_entrypoint.sh
-ENTRYPOINT ["/django_entrypoint.sh"]
+RUN chmod a+x django_entrypoint.sh
+
+ENTRYPOINT django_entrypoint.sh
 
 # RUN chmod +x django_entrypoint.sh
 # CHECK
