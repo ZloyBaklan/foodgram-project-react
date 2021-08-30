@@ -68,7 +68,6 @@ DJOSER = {
     'HIDE_USERS': False,
     'PERMISSIONS': {
         'activation': ['rest_framework.permissions.AllowAny'],
-        'user': ['rest_framework.permissions.AllowAny'],
         'password_reset_confirm': ['rest_framework.permissions.AllowAny'],
         'set_password': ['djoser.permissions.CurrentUserOrAdmin'],
         'username_reset': ['rest_framework.permissions.AllowAny'],
@@ -214,4 +213,3 @@ REST_FRAMEWORK = {
 # указываем директорию, в которую будут складываться файлы писем
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 # ADMIN_EMAIL = '<admin@foodgram.ru>'
-
