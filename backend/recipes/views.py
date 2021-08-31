@@ -46,7 +46,6 @@ class RecipeViewSet(ModelViewSet):
 
 
 class FavoriteApiView(APIView):
-    # queryset = Follow.objects.all()
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request, favorite_id):
@@ -118,8 +117,11 @@ class DownloadShoppingCart(APIView):
                 }
             else:
                 shopping_list[name]['amount'] += amount
-        main_list = ([f"{item}/{value['amount']}/{value['measurement_unit']}"
-                     for item, value in shopping_list.items()])
+        main_list = (
+            [f"Список покупок:\n"
+            f"{item}:{value['amount']} {value['measurement_unit']}\n"
+            for item, value in shopping_list.items()]
+            )
         today = datetime.date.today()
         main_list.append(f'\n From FoodGram with love, {today.year}')
         response = HttpResponse(main_list, 'Content-Type: text/plain')

@@ -9,7 +9,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import CustomUser, Follow
-# from .permissions import IsOwnerProfile
 from .serializers import (
     FollowListSerializer, UserFollowSerializer, CurrentUserSerializer
 )
@@ -17,7 +16,6 @@ from .serializers import (
 User = get_user_model()
 
 
-# Попытка починить ошибку Unable to login with provided credentials
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = CurrentUserSerializer
@@ -34,7 +32,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class FollowApiView(APIView):
-    # queryset = Follow.objects.all()
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request, following_id):

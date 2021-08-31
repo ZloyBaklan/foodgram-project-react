@@ -11,8 +11,7 @@ from .models import (Favorite, IngredientAmount, Recipe,
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    # name = serializers.ReadOnlyField()
-    # measurement_unit = serializers.ReadOnlyField()
+
     class Meta:
         model = Ingredient
         fields = ('__all__')

@@ -1,8 +1,5 @@
-# from djoser.serializers import UserCreateSerializer
-# from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-# from rest_framework.utils import model_meta
 from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Follow
@@ -87,7 +84,6 @@ class FollowListSerializer(serializers.ModelSerializer):
 
 class CurrentUserSerializer(serializers.ModelSerializer):
     is_subscribed = serializers.SerializerMethodField()
-    # password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
@@ -101,13 +97,6 @@ class CurrentUserSerializer(serializers.ModelSerializer):
             'password'
         )
         extra_kwargs = {"password": {'write_only': True}}
-
-    # def create(self,validated_data):
-    #    user = User.objects.create(
-    #        validated_data['phone'],
-    #        None,make_password(validated_data['password'])
-    #    )
-    #    return user
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
