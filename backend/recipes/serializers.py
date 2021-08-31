@@ -11,9 +11,8 @@ from .models import (Favorite, IngredientAmount, Recipe,
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    name = serializers.ReadOnlyField()
-    measurement_unit = serializers.ReadOnlyField()
-
+    # name = serializers.ReadOnlyField()
+    # measurement_unit = serializers.ReadOnlyField()
     class Meta:
         model = Ingredient
         fields = ('__all__')
@@ -23,11 +22,11 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(source='ingredient',
                                             read_only=True)
     name = serializers.SlugRelatedField(slug_field='name',
-                                        source='ingredient.name',
+                                        source='ingredient',
                                         read_only=True)
     measurement_unit = serializers.SlugRelatedField(
         slug_field='measurement_unit',
-        source='ingredient.measurement_unit', read_only=True
+        source='ingredient', read_only=True
     )
 
     class Meta:
@@ -38,7 +37,7 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
 class AddToIngredientAmountSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(source='ingredient',
                                             queryset=Ingredient.objects.all())
-    amount = serializers.IntegerField(write_only=True)
+    amount = serializers.IntegerField()
 
     class Meta:
         model = IngredientAmount
