@@ -1,5 +1,5 @@
 # from djoser.serializers import UserCreateSerializer
-from django.contrib.auth.hashers import make_password
+# from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 # from rest_framework.utils import model_meta
@@ -100,7 +100,7 @@ class CurrentUserSerializer(serializers.ModelSerializer):
             'last_name',
             'password'
         )
-        extra_kwargs = {"password":{'write_only': True}}
+        extra_kwargs = {"password": {'write_only': True}}
 
     # def create(self,validated_data):
     #    user = User.objects.create(
