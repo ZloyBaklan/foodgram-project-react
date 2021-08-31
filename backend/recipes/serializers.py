@@ -53,12 +53,12 @@ class RecipeSerializer(serializers.ModelSerializer):
     is_in_shopping_cart = serializers.SerializerMethodField()
 
     class Meta:
+        model = Recipe
         fields = (
             'id', 'tags', 'author', 'ingredients',
             'is_favorited', 'is_in_shopping_cart',
             'name', 'image', 'text', 'cooking_time'
         )
-        model = Recipe
 
     def get_ingredients(self, obj):
         recipe = obj
@@ -157,6 +157,7 @@ class RecipeFullSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'Время приготовления должно быть больше 0'
             )
+        return data
 
     def to_representation(self, instance):
         data = RecipeSerializer(

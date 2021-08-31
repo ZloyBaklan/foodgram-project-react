@@ -1,4 +1,4 @@
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import UniqueConstraint
 
@@ -41,8 +41,9 @@ class Recipe(models.Model):
                             null=False)
     image = models.ImageField(upload_to='media/', verbose_name='Изображение')
     cooking_time = models.PositiveSmallIntegerField(
+        default=1,
+        validators=[MinValueValidator(1, 'Значение не может быть меньше 1')],
         verbose_name='Время готовки в минутах',
-        validators=[MinValueValidator(1), MaxValueValidator(720)]
     )
 
     class Meta:
