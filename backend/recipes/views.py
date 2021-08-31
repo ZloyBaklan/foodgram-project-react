@@ -1,14 +1,13 @@
 import datetime
 from django.shortcuts import HttpResponse, get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
+from rest_framework import status,viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from api.views import ListCreateDestroyModelViewSet
 from .filters import RecipeFilter, IngredientFilter
 from .models import (Favorite, IngredientAmount, Ingredient,
                      Recipe, ShoppingList)
@@ -18,14 +17,13 @@ from .serializers import (FavoriteSerializer, RecipeFullSerializer,
                           IngredientSerializer)
 
 
-class IngredientView(ListCreateDestroyModelViewSet):
+class IngredientView(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     permission_classes = [AllowAny, ]
     queryset = Ingredient.objects.all()
     filter_backends = [DjangoFilterBackend, ]
     filter_class = IngredientFilter
     pagination_class = None
-    http_method_names = ['get']
 
 
 class RecipeViewSet(ModelViewSet):
