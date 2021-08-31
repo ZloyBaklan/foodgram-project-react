@@ -1,19 +1,15 @@
 FROM python:3.8.5 
  
-RUN mkdir /code 
- 
-COPY requirements.txt /code
-
-COPY django_entrypoint.sh /code
- 
-RUN pip3 install -r /code/requirements.txt 
-
-COPY . /code
-
-RUN chmod a+x /code/django_entrypoint.sh
-
-ENTRYPOINT ["/code/django_entrypoint.sh"]
-
 WORKDIR /code 
+
+COPY . .
+
+RUN pip install --upgrade pip && pip install -r /code/requirements.txt
+
+ADD django_entrypoint.sh /django_entrypoint.sh
+
+RUN chmod a+x /django_entrypoint.sh
+
+ENTRYPOINT ["/django_entrypoint.sh"] 
 
 CMD gunicorn api.wsgi:application --bind 0.0.0.0:8000 
