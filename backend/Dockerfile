@@ -12,6 +12,8 @@ COPY . /code
 
 WORKDIR /code 
 
+RUN chmod a+x django_entrypoint.sh
+
 ENTRYPOINT ["django_entrypoint.sh"]
 
 CMD gunicorn api.wsgi:application --bind 0.0.0.0:8000 
