@@ -20,7 +20,7 @@ class RecipeFilter(filters.FilterSet):
     class Meta:
         model = Recipe
         fields = ('tags', 'author', 'is_favorited', 'is_in_shopping_cart')
-    
+
     def get_is_favorited(self, queryset, name, value):
         qs = queryset.filter(is_favorited=value)
         return qs
@@ -28,6 +28,7 @@ class RecipeFilter(filters.FilterSet):
     def is_in_shopping_cart_filter(self, queryset, name, value):
         qs = queryset.filter(is_in_shopping_cart=value)
         return qs
+
 
 class IngredientFilter(filters.FilterSet):
     name = filters.CharFilter(field_name="name", lookup_expr='icontains')
