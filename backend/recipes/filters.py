@@ -2,6 +2,7 @@ import django_filters as filters
 
 from .models import Recipe, Ingredient
 from tags.models import Tag
+from users.models import CustomUser
 
 
 class RecipeFilter(filters.FilterSet):
@@ -22,12 +23,16 @@ class RecipeFilter(filters.FilterSet):
         fields = ('tags', 'author', 'is_favorited', 'is_in_shopping_cart')
 
     def get_is_favorited(self, queryset, name, value):
-        qs = queryset.filter(is_favorited=value)
-        return qs
+        user = self.request.user
+        if value:
+            return queryset.filter(favorites__user=user)
+        return Recipe.objects.all()
 
-    def is_in_shopping_cart_filter(self, queryset, name, value):
-        qs = queryset.filter(is_in_shopping_cart=value)
-        return qs
+    def get_is_in_shopping_cart(self, queryset, name, value):
+        user = self.request.user
+        if value:
+            return queryset.filter(purchases__user=user)
+        return Recipe.objects.all()
 
 
 class IngredientFilter(filters.FilterSet):
