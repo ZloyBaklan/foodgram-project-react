@@ -86,7 +86,7 @@ class FollowListSerializer(serializers.ModelSerializer):
 
 class CurrentUserSerializer(serializers.ModelSerializer):
     is_subscribed = serializers.SerializerMethodField()
-    password = serializers.CharField(write_only=True)
+    # password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
@@ -97,8 +97,9 @@ class CurrentUserSerializer(serializers.ModelSerializer):
             'username',
             'first_name',
             'last_name',
-            'password'
+        #    'password'
         )
+        # extra_kwargs = {"password":{'write_only': True}}
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
