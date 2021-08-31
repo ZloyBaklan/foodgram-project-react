@@ -117,7 +117,7 @@ class DownloadShoppingCart(APIView):
                 }
             else:
                 shopping_list[name]['amount'] += amount
-        main_list = ([f"Список покупок:\n{item}:{value['amount']}"
+        main_list = ([f"* {item}:{value['amount']}"
                       f"{value['measurement_unit']}\n"
                       for item, value in shopping_list.items()])
         today = datetime.date.today()
