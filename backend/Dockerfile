@@ -7,10 +7,10 @@ COPY requirements.txt /code
 COPY django_entrypoint.sh /code
  
 RUN pip3 install -r /code/requirements.txt 
-  
-WORKDIR /code 
 
-COPY . .
+COPY . /code
+
+WORKDIR /code 
 
 ENTRYPOINT django_entrypoint.sh
 
