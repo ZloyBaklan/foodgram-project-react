@@ -2,7 +2,6 @@ import django_filters as filters
 
 from .models import Recipe, Ingredient
 from tags.models import Tag
-from users.models import CustomUser
 
 
 class RecipeFilter(filters.FilterSet):
